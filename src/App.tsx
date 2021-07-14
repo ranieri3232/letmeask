@@ -1,12 +1,18 @@
-import { Button } from './components/Button';
+import { AuthContextProvider } from './contexts/AuthContext';
+import {BrowserRouter, Route} from 'react-router-dom';
+import { NewRoom } from './pages/NewRoom';
+import { Home } from './pages/Home';
+
+import './styles/global.scss';
 
 function App() {
   return (
-    <div>
-      <a href="htttps://www.google.com.br" target="_self">Clique aqui</a>
-      <Button text="agora já era a goiaba"/>
-      
-    </div>
+    <BrowserRouter>
+      <AuthContextProvider>
+        <Route path="/" exact component={Home}/>
+        <Route path="/rooms/new" component={NewRoom}/>
+      </AuthContextProvider>
+    </BrowserRouter>
     
   );
 }
