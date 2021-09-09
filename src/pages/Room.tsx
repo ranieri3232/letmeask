@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
 import { useEffect } from 'react';
 import { FormEvent, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import logoImg from '../assets/images/logo.svg';
 
@@ -9,6 +9,7 @@ import { Button } from '../components/Button';
 import { RoomCode } from '../components/RoomCode';
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
+
 
 import '../styles/room.scss';
 
@@ -43,7 +44,9 @@ export function Room(){
   const [questions, setQuestions] = useState<Question[]>([]);
   const [title, setTitle] = useState('');
   
-  const {user}= useAuth();
+  const {user, signOut}= useAuth();
+
+  const history = useHistory();
 
   const params = useParams<RoomParams>();
   const roomId = params.id;
@@ -68,6 +71,10 @@ export function Room(){
     })
   }, [roomId]);
 
+  function handleSignOut(){
+    signOut();
+    history.push('/');
+  }
   async function handleSendQuestion(event: FormEvent){
     event.preventDefault();
     if(newQuestion.trim() === ''){
@@ -115,12 +122,12 @@ export function Room(){
           />
           <div className="form-footer">
             { user ? (
-              <div className="user-info">
+              <div className="user-info" onClick={handleSignOut}>
                 <img src={user.avatar} alt={user.name} />
                 <span>{user.name}</span>
               </div>
             ) : (
-              <span>Para enviar uma pergunta, <button>faça seu login</button>.</span>
+              <span>Para enviar uma pergunta, <button >faça seu login</button>.</span>
             )}
             <Button disabled={!user} type="submit">
               Enviar pergunta

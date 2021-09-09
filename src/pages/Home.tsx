@@ -31,7 +31,13 @@ export function Home(){
 
   async function handleCreateNewRoom(){
     if(!user){
-      await signInWithGoogle();
+      try{
+        await signInWithGoogle();
+      } catch(err){
+        console.log('Error ao tentar acessar sua conta.');
+        history.push('/');
+        return;
+      }
     }
     history.push('/rooms/new');
   }
