@@ -39,13 +39,15 @@ export function AuthContextProvider(props: AuthContextProviderProps){
           avatar: photoURL,
           name: displayName
         });
+      }else{
+        setUser(undefined);
       }
     });
     return () => {
       unsubscribe();
     }
   }, []);
-  function signOut(){
+  async function signOut(){
     auth.signOut();
     console.log('user sign out');
   }
