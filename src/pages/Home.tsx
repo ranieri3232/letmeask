@@ -26,12 +26,23 @@ export function Home(){
       alert('Room does not exists.');
       return;
     }
+
+    if(roomRef.val().closedAt){
+      alert('Room already closed');
+      return;
+    }
     history.push(`/rooms/${roomCode}`);
   }
 
   async function handleCreateNewRoom(){
     if(!user){
-      await signInWithGoogle();
+      try{
+        await signInWithGoogle();
+      } catch(err){
+        console.log('Error ao tentar acessar sua conta.');
+        history.push('/');
+        return;
+      }
     }
     history.push('/rooms/new');
   }
