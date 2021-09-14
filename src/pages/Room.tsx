@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import logoImg from '../assets/images/logo.svg';
+import emptyQuestionsImg from '../assets/images/empty-questions.svg';
 
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
@@ -102,7 +103,9 @@ export function Room(){
           </div>
         </form>
         <div className="question-list">
-          {questions.map(question => {
+          {
+            questions.length !== 0 ? 
+            questions.map(question => {
             return(
               <Question 
                 key={question.id}
@@ -126,7 +129,15 @@ export function Room(){
                 )}
               </Question>
             )
-          })}
+          })
+          :
+          <div >
+            <img src={emptyQuestionsImg} alt="Lista de perguntas vazias" />
+            <h3>Nenhuma pergunta por aqui...</h3>
+            <span>{user ? 'Seja o primeiro a perguntar!' : 'Faça o login e seja o primeiro a perguntar!'}</span>
+          </div>
+        
+        } 
         </div>
       </main>
     </div>

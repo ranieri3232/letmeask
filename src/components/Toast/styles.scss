@@ -1,0 +1,58 @@
+#container{
+  position: fixed;
+  right: 18px;
+  top: 18px;
+  z-index: 9999;
+
+  
+  .toast{
+    display: flex;
+    flex-direction: row;
+    animation: slide .4s;
+    min-width: 250px;
+    min-height: 45px;
+    border: 8px solid #835afd;
+    border-radius: 8px;
+    justify-content: left;
+    margin-top: 10px;
+    cursor: pointer;
+
+    .content{
+      display: flex;
+      flex-direction: row;
+      min-width: 200px;
+      gap: 8px;
+      align-items: center;
+      >p{
+        text-align: center;
+        color: white;
+      }
+      svg path, circle{
+        stroke: white;
+      }
+    }
+  }
+  .close{
+    animation: slide-down .4s forwards;
+  }
+  .info{
+    background:#835afd;
+  }
+
+  @keyframes slide {
+    from{
+      transform: translateX(100%);
+    }
+    to{
+      transform: translateX(0);
+    }
+  }
+  @keyframes slide-down {
+    from{
+      transform: translateX(0);
+    }
+    to{
+      transform: translateX(120%);
+    }
+  }
+}

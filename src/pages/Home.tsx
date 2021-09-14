@@ -1,18 +1,22 @@
+import { FormEvent, useRef, useState } from 'react';
+
 import illustratorImg from '../assets/images/illustration.svg';
 import googleImg from '../assets/images/google-icon.svg';
 import logoImg from '../assets/images/logo.svg';
-import { Button } from '../components/Button';
+
 import { useHistory } from 'react-router-dom';
+import { database } from '../services/firebase';
 import { useAuth } from '../hooks/useAuth';
 
-import '../styles/auth.scss'
-import { FormEvent, useState } from 'react';
-import { database } from '../services/firebase';
+import { Button } from '../components/Button';
+import {ToastContainer} from '../components/Toast';
+
+import '../styles/auth.scss';
+import { ToastProps } from '../components/Toast/Toast';
 
 export function Home(){
   const history = useHistory();
   const [roomCode, setRoomCode] = useState('');
-
   const {signInWithGoogle, user} = useAuth();
 
   async function handleJoinRoom(event: FormEvent){
@@ -48,6 +52,8 @@ export function Home(){
   }
   return (
     <div id="page-auth"> 
+      <ToastContainer
+      />
       <aside>
         <img src={illustratorImg} alt="ilustração simbolizando perguntas e respostas" />
         <strong>Crie salas de Q&amp;A ao-vivo </strong>
@@ -72,7 +78,7 @@ export function Home(){
               onChange={event => setRoomCode(event.target.value)}
               value={roomCode}
             />
-            <Button type="submit">
+            <Button type="button" onClick={handleCreateAToast}>
               Entrar na sala
             </Button>
           </form>
