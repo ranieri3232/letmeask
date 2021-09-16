@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import logoImg from '../assets/images/logo.svg';
@@ -131,7 +131,7 @@ export function Room(){
             )
           })
           :
-          <div >
+          <div className="no-questions">
             <img src={emptyQuestionsImg} alt="Lista de perguntas vazias" />
             <h3>Nenhuma pergunta por aqui...</h3>
             <span>{user ? 'Seja o primeiro a perguntar!' : 'Faça o login e seja o primeiro a perguntar!'}</span>

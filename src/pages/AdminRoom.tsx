@@ -112,7 +112,7 @@ export function AdminRoom(){
               )
             })
             : 
-            <div >
+            <div className="no-questions" >
               <img src={emptyQuestionsImg} alt="Lista de perguntas vazias" />
               <h3>Nenhuma pergunta por aqui...</h3>
               <span>Repasse o código da sala para seus amigos e <br/>comece a responder as perguntas!</span>
