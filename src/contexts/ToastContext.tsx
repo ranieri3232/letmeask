@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode, useCallback, useEffect, useState} from "react";
+import React, {createContext, ReactNode, useCallback, useState} from "react";
 import { EnumType } from "typescript";
 let id = 0;
 
@@ -13,10 +13,11 @@ type ToastContextProps = {
   createToast: (message: string, options?:OptionsProps) => void;
   toasts: ToastProps[];
 }
-type ToastContextProvider = {
+type ToastContextProviderType = {
   children: ReactNode;
 }
 export const ToastContext = createContext({} as ToastContextProps);
+
 type OptionsProps = {
   selfDestruct?: boolean
   priority?: EnumType | undefined;
@@ -25,7 +26,7 @@ const DefaultValues = {
   selfDestruct: true
 };
 
-export function ToastContextProvider({children}: ToastContextProvider){
+export function ToastContextProvider({children}: ToastContextProviderType){
   const [toasts, setToasts] = useState<ToastProps[]>([]);
   const createToast = useCallback(
     (message: string, options?: OptionsProps) => {

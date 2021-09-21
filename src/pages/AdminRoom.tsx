@@ -14,7 +14,6 @@ import { Button } from '../components/Button';
 import { useRoom } from '../hooks/useRoom';
 
 import '../styles/room.scss';
-import { useAuth } from '../hooks/useAuth';
 
 type RoomParams = {
   id: string;
@@ -28,7 +27,6 @@ export function AdminRoom(){
   const history = useHistory();
 
   const {questions, title} = useRoom(roomId);
-  const {user} = useAuth();
 
   async function handleEndRoom(){
     await database.ref(`rooms/${roomId}`).update({

@@ -1,0 +1,28 @@
+.container{
+  z-index: 999;
+  display: flex;
+  background: #835afd;
+  min-width: 200px;
+  min-height: 50px;
+  align-items: center;
+  border: 1px solid #835afd;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 12px;
+
+  .content{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+    gap: 8px;
+
+    >svg{
+      margin-left: 8px;
+    }
+    >p{
+      color: white;
+      
+    }
+  }
+}
