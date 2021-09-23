@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import { database } from "../services/firebase";
 import { useAuth } from "./useAuth";
+import { useToast } from "./useToast";
 type QuestionType = {
   id: string;
   author: {
@@ -28,15 +30,25 @@ type FirebaseQuestions = Record<string, {
 export function useRoom(roomId: string){
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState('');
+  const history = useHistory();
+  const {createToast} = useToast();
+  const [closedAt, setClosedAt] = useState<Date>();
 
   const { user } = useAuth();
 
   useEffect(() => {
     const roomRef = database.ref(`rooms/${roomId}`);
+
     roomRef.on('value', room => {
+      if(room.val() === null){
+        history.push('/');
+        createToast('Sala excluída', {selfDestruct:false});
+        return;
+      }
       const databaseRoom = room.val();
       const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
-
+      setClosedAt(databaseRoom.closedAt);
+      
       const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
         return {
           id: key,
@@ -55,6 +67,6 @@ export function useRoom(roomId: string){
     return () => {
       roomRef.off('value');
     }
-  }, [roomId, user?.id]);
-  return { questions, title };
+  }, [roomId, user?.id, createToast, history]);
+  return { questions, title, closedAt };
 }

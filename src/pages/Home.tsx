@@ -10,6 +10,8 @@ import { useAuth } from '../hooks/useAuth';
 
 import { Button } from '../components/Button';
 
+import { T_TYPES } from '../contexts/ToastContext';
+import { useToast } from '../hooks/useToast';
 import '../styles/auth.scss';
 
 export function Home(){
@@ -17,24 +19,21 @@ export function Home(){
   const [roomCode, setRoomCode] = useState('');
   const {signInWithGoogle, user} = useAuth();
 
+  const {createToast} = useToast();
 
-  
   async function handleJoinRoom(event: FormEvent){
     event.preventDefault();
     if(roomCode.trim() === ''){
+      createToast('Preencha o código da sala', {tType: T_TYPES.DANGER});
       return;
     }
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
     if(!roomRef.exists()){
-      alert('Room does not exists.');
+      createToast('Código de sala inválido', {tType: T_TYPES.DANGER});
       return;
     }
-
-    if(roomRef.val().closedAt){
-      alert('Room already closed');
-      return;
-    }
+    createToast('Código de sala válido', {tType: T_TYPES.INFO});
     history.push(`/rooms/${roomCode}`);
   }
 

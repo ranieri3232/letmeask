@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ToastProps } from "../../contexts/ToastContext";
+import { ToastProps, T_TYPES } from "../../contexts/ToastContext";
 import { useToast } from "../../hooks/useToast";
 
 import { FaInfoCircle } from 'react-icons/fa';
@@ -9,7 +9,8 @@ import './styles/toast.scss';
 export function Toast({
     selfDestruct, 
     id, 
-    message
+    message,
+    tType
   }:ToastProps){
 
   const { removeToast } = useToast();
@@ -29,7 +30,7 @@ export function Toast({
     
   }, [id, removeToast, selfDestruct])
   return (
-    <div className="container" onClick={handleSelfRemove}>
+    <div className={`container ${tType === T_TYPES.INFO?'info':'danger'}`} onClick={handleSelfRemove}>
       <div className="content">
         <FaInfoCircle size={32} color="white" />
         <p>{message}</p>

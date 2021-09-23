@@ -20,6 +20,7 @@ export function ToastContainer(){
             key={item.id}
             message={item.message} 
             id={item.id} 
+            tType={item.tType}
             selfDestruct={item.selfDestruct}
           />
         </animated.div>

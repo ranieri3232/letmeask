@@ -1,11 +1,9 @@
 .container{
   z-index: 999;
   display: flex;
-  background: #835afd;
-  min-width: 200px;
+  min-width: 250px;
   min-height: 50px;
   align-items: center;
-  border: 1px solid #835afd;
   border-radius: 12px;
   cursor: pointer;
   margin-bottom: 12px;
@@ -25,4 +23,12 @@
       
     }
   }
+}
+.info{
+  background: #835afd;
+  border: 1px solid #835afd;
+}
+.danger{
+  background: #ea4335;
+  border: 1px solid #ea4335;
 }

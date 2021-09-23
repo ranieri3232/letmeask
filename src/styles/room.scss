@@ -18,9 +18,12 @@
           height: 40px
         }
       }
-      >img{
-        max-height: 45px;
+      >a{
+        >img{
+          max-height: 45px;
+        }
       }
+      
       
     }
   }

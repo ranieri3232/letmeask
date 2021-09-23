@@ -26,7 +26,7 @@ export function AdminRoom(){
 
   const history = useHistory();
 
-  const {questions, title} = useRoom(roomId);
+  const {questions, title, closedAt} = useRoom(roomId);
 
   async function handleEndRoom(){
     await database.ref(`rooms/${roomId}`).update({
@@ -56,10 +56,12 @@ export function AdminRoom(){
     <div id="page-room">
       <header>
         <div className="content">
-          <img src={logoImg} alt="Letmeask" />
+          <a href="/">
+            <img src={logoImg} alt="Letmeask" />
+          </a>
           <div>
             <RoomCode code={roomId}/>
-            <Button onClick={handleEndRoom} isOutlined>Encerrar</Button>
+            <Button onClick={handleEndRoom} isOutlined disabled={closedAt?true:false}>Encerrar</Button>
           </div>
         </div>
       </header>
