@@ -52,24 +52,28 @@ export function AuthContextProvider(props: AuthContextProviderProps){
     console.log('user sign out');
   }
   async function signInWithGoogle(){
-    const provider = new firebase.auth.GoogleAuthProvider();
+    try{
+      const provider = new firebase.auth.GoogleAuthProvider();
 
-    const result = await auth.signInWithPopup(provider);
-      
-    if(result.user){
-      const {displayName, uid, photoURL} = result.user;
+      const result = await auth.signInWithPopup(provider);
+        
+      if(result.user){
+        const {displayName, uid, photoURL} = result.user;
 
-      if(!displayName || !photoURL){
-        throw new Error("Missing information from Google account.");
+        if(!displayName || !photoURL){
+          throw new Error("Missing information from Google account.");
+        }
+
+        setUser({
+          id: uid,
+          avatar: photoURL,
+          name: displayName
+        });
+        return;
       }
-
-      setUser({
-        id: uid,
-        avatar: photoURL,
-        name: displayName
-      });
+    }catch(err){
+      throw err;
     }
-     
   }
   return (
     <AuthContext.Provider value={{user, signInWithGoogle, signOut}}>

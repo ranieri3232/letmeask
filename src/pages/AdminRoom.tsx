@@ -1,5 +1,5 @@
 
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import emptyQuestionsImg from '../assets/images/empty-questions.svg';
 import deleteImg from '../assets/images/delete.svg';
@@ -24,16 +24,12 @@ export function AdminRoom(){
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
-  const history = useHistory();
-
   const {questions, title, closedAt} = useRoom(roomId);
 
   async function handleEndRoom(){
     await database.ref(`rooms/${roomId}`).update({
       closedAt: new Date()
     });
-
-    history.push('/');
   }
 
   async function handleDeleteQuestion(questionId: string){
@@ -51,7 +47,6 @@ export function AdminRoom(){
       isHighlighted: true
     });
   }
-
   return(
     <div id="page-room">
       <header>
@@ -61,7 +56,7 @@ export function AdminRoom(){
           </a>
           <div>
             <RoomCode code={roomId}/>
-            <Button onClick={handleEndRoom} isOutlined disabled={closedAt?true:false}>Encerrar</Button>
+            {!closedAt&&<Button onClick={handleEndRoom} isOutlined>Encerrar</Button>}
           </div>
         </div>
       </header>
@@ -69,7 +64,7 @@ export function AdminRoom(){
         <div className="room-title">
           <h1>Sala {title}</h1>
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
-         
+          {closedAt&&<span className="closed-tip">encerrada {`${closedAt?.toLocaleDateString()}`}</span>}
         </div>
         <div className="question-list">
           {

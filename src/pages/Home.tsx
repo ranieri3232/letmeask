@@ -17,7 +17,7 @@ import '../styles/auth.scss';
 export function Home(){
   const history = useHistory();
   const [roomCode, setRoomCode] = useState('');
-  const {signInWithGoogle, user} = useAuth();
+  const {signInWithGoogle, user, signOut} = useAuth();
 
   const {createToast} = useToast();
 
@@ -36,11 +36,15 @@ export function Home(){
     createToast('Código de sala válido', {tType: T_TYPES.INFO});
     history.push(`/rooms/${roomCode}`);
   }
+  function handleSignOut(){
+    signOut();
+  }
 
   async function handleCreateNewRoom(){
     if(!user){
       try{
         await signInWithGoogle();
+        createToast('Usuário logado', {tType:T_TYPES.SUCCESS});
       } catch(err){
         console.log('Error ao tentar acessar sua conta.');
         history.push('/');
@@ -59,15 +63,28 @@ export function Home(){
       <main>
         <div className="main-content">
           <img src={logoImg} alt="Letmeask" />
-          <button 
-            onClick={handleCreateNewRoom}
-            className="create-room">
-            <img src={googleImg} alt="Logo do google"/>
-            Crie sua sala com o Google
-          </button>
-          <div className="separator">
-            ou entre em uma sala
-          </div>
+          {user?(
+            <div className="user-info-card">
+              <div className="content">
+                <img src={user.avatar} alt="Foto de usuário" />
+                <span>{user.name}</span>
+              </div>
+              <button onClick={handleSignOut}>Sair</button>
+            </div>
+          ):(
+            <>
+              <button 
+                onClick={handleCreateNewRoom}
+                className="create-room">
+                <img src={googleImg} alt="Logo do google"/>
+                Crie sua sala com o Google
+              </button>
+              <div className="separator">
+                ou entre em uma sala
+              </div>
+            </>
+          )}
+          
           <form onSubmit={handleJoinRoom}>
             <input 
               type="text" 

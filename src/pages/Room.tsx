@@ -12,6 +12,8 @@ import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
 
 import '../styles/room.scss';
+import { useToast } from '../hooks/useToast';
+import { T_TYPES } from '../contexts/ToastContext';
 
 type RoomParams = {
   id: string;
@@ -19,7 +21,7 @@ type RoomParams = {
 export function Room(){
   const [newQuestion, setNewQuestion] = useState('');
 
-  const {user, signOut}= useAuth();
+  const {user, signOut, signInWithGoogle}= useAuth();
 
   const history = useHistory();
 
@@ -27,6 +29,8 @@ export function Room(){
   const roomId = params.id;
 
   const {questions, title} = useRoom(roomId);
+
+  const {createToast} = useToast();
 
   function handleSignOut(){
     signOut();
@@ -54,16 +58,25 @@ export function Room(){
     await database.ref(`rooms/${roomId}/questions`).push(question);
     setNewQuestion('');
   }
+  async function handleSignIn(){
+    try{
+      await signInWithGoogle();
+      console.log('usuario logado');
+    }catch(err){ 
+      createToast('falha no login', {tType: T_TYPES.DANGER});
+    }
+  }
 
   async function handleLikeQuestion(questionId: string, likeId: string | undefined){
-    if(likeId){
-      await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove();
-    }else{
-      await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
-        authorId: user?.id,
-      });
+    if(user){
+      if(likeId){
+        await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove();
+      }else{
+        await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
+          authorId: user?.id,
+        });
+      }
     }
-   
   }
 
   return(
@@ -97,7 +110,7 @@ export function Room(){
                 <span>{user.name}</span>
               </div>
             ) : (
-              <span>Para enviar uma pergunta, <button >faça seu login</button>.</span>
+              <span>Para enviar uma pergunta, <button onClick={handleSignIn}>faça seu login</button>.</span>
             )}
             <Button disabled={!user} type="submit">
               Enviar pergunta

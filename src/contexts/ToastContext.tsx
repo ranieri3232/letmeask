@@ -3,9 +3,10 @@ import { ToastContainer } from "../components/Toast/ToastContainer";
 let id = 0;
 
 export enum T_TYPES {
-  INFO,
-  WARNING,
-  DANGER
+  INFO = 'info',
+  WARNING = 'warning',
+  DANGER = 'danger',
+  SUCCESS = 'success'
 };
 
 export type ToastProps = {

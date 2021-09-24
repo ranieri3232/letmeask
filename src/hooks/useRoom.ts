@@ -47,7 +47,12 @@ export function useRoom(roomId: string){
       }
       const databaseRoom = room.val();
       const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
-      setClosedAt(databaseRoom.closedAt);
+      if(databaseRoom.closedAt){
+        setClosedAt(new Date(databaseRoom.closedAt));
+      }else{
+        setClosedAt(undefined);
+      }
+      
       
       const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
         return {

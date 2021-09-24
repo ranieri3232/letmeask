@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { ToastProps, T_TYPES } from "../../contexts/ToastContext";
 import { useToast } from "../../hooks/useToast";
 
-import { FaInfoCircle } from 'react-icons/fa';
+import { FaInfoCircle, FaCheckCircle } from 'react-icons/fa';
 
 import './styles/toast.scss';
 
@@ -30,9 +30,14 @@ export function Toast({
     
   }, [id, removeToast, selfDestruct])
   return (
-    <div className={`container ${tType === T_TYPES.INFO?'info':'danger'}`} onClick={handleSelfRemove}>
+    <div className={`container ${tType}`} onClick={handleSelfRemove}>
       <div className="content">
-        <FaInfoCircle size={32} color="white" />
+        {
+          tType === T_TYPES.DANGER?
+          <FaInfoCircle size={32} color="white" />
+          :
+          <FaCheckCircle size={32} color="white"/>
+        }
         <p>{message}</p>
       </div>
 
