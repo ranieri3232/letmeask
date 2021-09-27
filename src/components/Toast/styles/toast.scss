@@ -1,8 +1,8 @@
 .container{
   z-index: 999;
   display: flex;
-  min-width: 250px;
-  min-height: 50px;
+  min-width: 300px;
+  min-height: 60px;
   align-items: center;
   border-radius: 12px;
   cursor: pointer;
@@ -20,6 +20,7 @@
     }
     >p{
       color: white;
+      font-size: 1.6rem;
       
     }
   }
@@ -35,4 +36,9 @@
 .success{
   background-color: #00B200;
   border: #00B200
+}
+@media (max-width: 320px) {
+  .container{
+    min-width: 90vw;
+  }
 }

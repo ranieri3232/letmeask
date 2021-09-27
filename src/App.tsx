@@ -1,12 +1,15 @@
+import './styles/global.scss';
 import { AuthContextProvider } from './contexts/AuthContext';
 import {BrowserRouter, Route, Switch } from 'react-router-dom';
 import { NewRoom } from './pages/NewRoom';
 import { Home } from './pages/Home';
 
-import './styles/global.scss';
+
 import { Room } from './pages/Room';
 import { AdminRoom } from './pages/AdminRoom';
 import { ToastContextProvider } from './contexts/ToastContext';
+
+import './styles/responsive.scss';
 
 function App() {
   return (

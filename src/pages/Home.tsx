@@ -46,7 +46,8 @@ export function Home(){
         await signInWithGoogle();
         createToast('Usuário logado', {tType:T_TYPES.SUCCESS});
       } catch(err){
-        console.log('Error ao tentar acessar sua conta.');
+        console.log(err);
+        createToast('Falha no login', {tType: T_TYPES.DANGER});
         history.push('/');
         return;
       }
