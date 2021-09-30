@@ -5,8 +5,7 @@
 
   aside{ 
     flex: 5;
-
-    background: #835afd;
+    background: var(--primary-color);
     color: #FFF;
 
     display: flex;
@@ -24,12 +23,13 @@
       font: 700 3.6rem 'Poppins', sans-serif;
       line-height: 42px;
       margin-top: 16px;
+      color: var(--white-color);
     }
     p{
       font-size: 2.4rem;
       line-height: 3.2rem;
       margin-top: 16px;
-      color: #f8f8f8
+      color: var(--white-color);
     }
 
   }
@@ -39,6 +39,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--background-color);
   }
   .main-content{
     display: flex;
@@ -65,22 +66,23 @@
         >span{
           margin-left: 1.6rem;
           font-size: 1.6rem;
+          color: var(--title-color);
 
         }
       }
       >button{
         background-color: transparent;
-        border: 1px solid #ea4335;
+        border: 1px solid var(--secondary-color);
         border-radius: 8px;
         padding: 8px 16px;
-        color: #ea4335;
+        color: var(--secondary-color);
         font-family: sans-serif;
         cursor: pointer;
         font-weight: bold;
         transition: background-color 0.25s;
         &:hover{
-          background-color: #ea4335;
-          color: #f8f8f8;
+          background-color: var(--secondary-color);
+          color: var(--title-color);
         }
         
       }
@@ -102,7 +104,7 @@
         border-radius: 8px;
         padding: 0 16px;
         background: #FFF;
-        border: 1px solid #a8a8b3;
+        border: 1px solid var(--separator-color);
       }
       button{
         margin-top: 16px;
@@ -114,11 +116,11 @@
     }
     p{
       font-size: 1.4rem;
-      color: #737380;
+      color: var(--title-color);
       margin-top: 16px;
 
       a{
-        color: #e559f9;
+        color: var(--link-color);
       }
     }
 
@@ -128,7 +130,7 @@
     height: 50px;
     border-radius: 8px;
     font-weight: 500;
-    background: #ea4335;
+    background: var(--secondary-color);
     color: #FFF;
 
     display: flex;
@@ -150,7 +152,7 @@
   }
   .separator{
     font-size: 1.4rem;
-    color: #a8a8b3;
+    color: var(--separator-color);
 
     margin: 32px 0;
     display: flex;
@@ -160,7 +162,7 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: #a8a8b3;
+      background: var(--separator-color);
       margin-right: 16px;
 
     }
@@ -168,7 +170,7 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: #a8a8b3;
+      background: var(--separator-color);
       margin-left: 16px;
     }
   }

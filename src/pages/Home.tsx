@@ -12,13 +12,14 @@ import { Button } from '../components/Button';
 
 import { T_TYPES } from '../contexts/ToastContext';
 import { useToast } from '../hooks/useToast';
+import { Switcher } from '../components/Switcher';
 import '../styles/auth.scss';
 
 export function Home(){
   const history = useHistory();
   const [roomCode, setRoomCode] = useState('');
   const {signInWithGoogle, user, signOut} = useAuth();
-
+  
   const {createToast} = useToast();
 
   async function handleJoinRoom(event: FormEvent){
@@ -62,6 +63,7 @@ export function Home(){
         <p> Tire dúvidas da sua audiência em tempo real</p>
       </aside>
       <main>
+        <Switcher />
         <div className="main-content">
           <img src={logoImg} alt="Letmeask" />
           {user?(

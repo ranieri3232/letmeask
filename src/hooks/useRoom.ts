@@ -33,6 +33,7 @@ export function useRoom(roomId: string){
   const history = useHistory();
   const {createToast} = useToast();
   const [closedAt, setClosedAt] = useState<Date>();
+  const [authorId, setAuthorId] = useState('');
 
   const { user } = useAuth();
 
@@ -52,7 +53,7 @@ export function useRoom(roomId: string){
       }else{
         setClosedAt(undefined);
       }
-      
+      setAuthorId(databaseRoom.authorId);
       
       const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
         return {
@@ -72,6 +73,6 @@ export function useRoom(roomId: string){
     return () => {
       roomRef.off('value');
     }
-  }, [roomId, user?.id, createToast, history]);
-  return { questions, title, closedAt };
+  }, [roomId, user?.id, createToast, history, authorId]);
+  return { questions, title, closedAt, authorId };
 }

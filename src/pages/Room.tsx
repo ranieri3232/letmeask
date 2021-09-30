@@ -28,7 +28,7 @@ export function Room(){
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
-  const {questions, title} = useRoom(roomId);
+  const {questions, title, closedAt} = useRoom(roomId);
 
   const {createToast} = useToast();
 
@@ -93,6 +93,7 @@ export function Room(){
         <div className="room-title">
           <h1>Sala {title}</h1>
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
+          {closedAt&&<span className="closed-tip">encerrada {`${closedAt?.toLocaleDateString()}`}</span>}
          
         </div>
         <form 
@@ -112,7 +113,7 @@ export function Room(){
             ) : (
               <span>Para enviar uma pergunta, <button onClick={handleSignIn}>faça seu login</button>.</span>
             )}
-            <Button disabled={!user} type="submit">
+            <Button disabled={!user || closedAt !== undefined} type="submit">
               Enviar pergunta
             </Button>
           </div>

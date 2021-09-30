@@ -13,18 +13,32 @@ import { database } from '../services/firebase';
 import { Button } from '../components/Button';
 import { useRoom } from '../hooks/useRoom';
 
+
+import { useHistory } from "react-router";
+
 import '../styles/room.scss';
+import { useAuth } from '../hooks/useAuth';
+import { useEffect } from 'react';
 
 type RoomParams = {
   id: string;
 }
 export function AdminRoom(){
 
-
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
-  const {questions, title, closedAt} = useRoom(roomId);
+  const {questions, title, closedAt, authorId} = useRoom(roomId);
+  const {user} = useAuth();
+  const history = useHistory();
+  
+  useEffect(() => {
+    if(user && authorId){
+      if(user?.id !== authorId){
+        history.push(`/rooms/${roomId}`);
+      }
+    }
+  }, [authorId, user, history, roomId]);
 
   async function handleEndRoom(){
     await database.ref(`rooms/${roomId}`).update({
