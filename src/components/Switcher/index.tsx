@@ -2,15 +2,12 @@ import { useTheme } from '../../hooks/useTheme';
 import {FaMoon, FaSun} from 'react-icons/fa'
 import './styles.scss';
 export function  Switcher(){
-  const {changeTheme, theme} = useTheme();
+  const {toggleTheme, theme} = useTheme();
   return(
     <label className="switch">
-      <input type="checkbox" onChange={changeTheme}/>
+      <input type="checkbox" onChange={toggleTheme}/>
       <span className="slider"></span>
-      <div className="indicator">{theme !== 'light'?<FaMoon  size={20}/>:<FaSun size={20}/>}</div>
-      
-      
-      
+      <div className="indicator">{theme !== 'light'?<FaMoon color="white" size={20}/>:<FaSun color="yellow" size={20}/>}</div>
     </label>
   );
 }

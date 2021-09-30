@@ -63,7 +63,6 @@ export function Home(){
         <p> Tire dúvidas da sua audiência em tempo real</p>
       </aside>
       <main>
-        <Switcher />
         <div className="main-content">
           <img src={logoImg} alt="Letmeask" />
           {user?(
@@ -100,7 +99,9 @@ export function Home(){
             </Button>
           </form>
         </div>
+        <Switcher />
       </main>
+      
     </div>
   )
 }

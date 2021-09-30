@@ -1,7 +1,7 @@
 .switch{
   width: 60px;
   height: 34px;
-  position: fixed;
+  position: absolute;
   display: inline-block;
   bottom: 30px;
   right: 30px;
@@ -18,7 +18,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: var(--primary-color);
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 34px;
@@ -34,7 +34,7 @@
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: var(--primary-color);
 }
 
 input:checked + span + div.indicator {

@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode} from "react";
+import { usePersistedState } from "../utils/usePersistedState";
 
 
 type ThemeContextProviderProps = {
@@ -6,26 +7,19 @@ type ThemeContextProviderProps = {
 }
 type ThemeContextProps = {
   theme: string;
-  changeTheme: () => void;
+  toggleTheme: () => void;
 }
 
 export const ThemeContext = createContext({} as ThemeContextProps);
 
 export function ThemeContextProvider({children}:ThemeContextProviderProps){
-  const [theme, setTheme] = useState('light');
-  useEffect(() => {
-    console.log(theme);
-  }, []);
+  const [theme, setTheme] = usePersistedState('theme', 'light');
 
-  function changeTheme(){
-    if(theme === 'light'){
-      setTheme('dark');
-    }else{
-      setTheme('light');
-    }
+  function toggleTheme(){
+    setTheme(theme === 'light'?'dark':'light');
   }
   return(
-    <ThemeContext.Provider value={{theme, changeTheme}}>
+    <ThemeContext.Provider value={{theme, toggleTheme}}>
       {children}
     </ThemeContext.Provider>
   );
