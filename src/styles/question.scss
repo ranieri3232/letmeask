@@ -24,6 +24,7 @@
   p{
     color: var(--text-color);
     font-size: 1.6rem;
+    word-break: break-all;
   }
 
   footer{
@@ -63,8 +64,10 @@
         font-size: 1.6rem;
         color: var(--button-color);
       }
-      svg path{
-        stroke: var(--button-color);
+      svg{
+        path, circle{
+          stroke: var(--button-color);
+        }   
       }
 
       &.like-button{
@@ -90,6 +93,36 @@
 
         &:hover{
           filter: brightness(0.7);
+        }
+      }
+      &.delete-button{
+        &:hover{
+          svg{
+            path{
+              stroke: var(--exit-button-color);
+              transition: stroke .2s;
+            }
+          }
+        }
+      }
+      &.highlight-button{
+        &:hover{
+          svg{
+            path{
+              stroke: var(--primary-color);
+              transition: stroke .2s;
+            }
+          }
+        }
+      }
+      &.check-button{
+        &:hover{
+          svg{
+            path, circle{
+              stroke: var(--primary-color);
+              transition: stroke .2s;
+            }
+          }
         }
       }
     }

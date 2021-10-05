@@ -1,8 +1,8 @@
 import { FormEvent, useState } from 'react';
 
-import illustratorImg from '../assets/images/illustration.svg';
 import googleImg from '../assets/images/google-icon.svg';
-import logoImg from '../assets/images/logo.svg';
+import { ReactComponent as LogoImg } from '../assets/images/logo.svg'
+import { ReactComponent as IllustrationImg } from '../assets/images/illustration.svg';
 
 import { useHistory } from 'react-router-dom';
 import { database } from '../services/firebase';
@@ -58,13 +58,13 @@ export function Home(){
   return (
     <div id="page-auth"> 
       <aside>
-        <img src={illustratorImg} alt="ilustração simbolizando perguntas e respostas" />
+        <IllustrationImg className="illustration-img"/>
         <strong>Crie salas de Q&amp;A ao-vivo </strong>
         <p> Tire dúvidas da sua audiência em tempo real</p>
       </aside>
       <main>
         <div className="main-content">
-          <img src={logoImg} alt="Letmeask" />
+          <LogoImg className="logo-img"/>
           {user?(
             <div className="user-info-card">
               <div className="content">
@@ -97,6 +97,10 @@ export function Home(){
             <Button type="button" onClick={handleJoinRoom}>
               Entrar na sala
             </Button>
+            {user&&
+            <div>
+              <span>crie uma nova sala <a href="/rooms/new">clicando aqui</a></span>
+            </div>}
           </form>
         </div>
         <Switcher />

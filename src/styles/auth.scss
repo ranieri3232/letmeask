@@ -14,9 +14,19 @@
 
     padding: 120px 80px;
 
-    img{
-      max-width: 70%;
+    .illustration-img{
+      max-width: 90%;
+      max-height: 90%;
+      min-width: 200px;
+      min-height: 200px;
       margin: auto;
+      path.second-ball{
+        fill: var(--primary-color);
+      }
+      path.first-ball{
+        fill: var(--link-color);
+      }
+      
     }
 
     strong{
@@ -50,6 +60,23 @@
     align-items: stretch;
     text-align: center;
 
+    .logo-img{
+      margin: auto;
+      > *:nth-child(-n + 5){
+        fill: var(--text-color);
+      }
+      defs{
+        linearGradient{
+          >stop{
+            stop-color: var(--logo-gradient-up);
+          }
+          stop+stop{
+            stop-color: var(--logo-gradient-down);
+          }
+        }
+      }
+    }
+
     .user-info-card{
       display: flex;
       margin-top: 16px;
@@ -68,22 +95,21 @@
           margin-left: 1.6rem;
           font-size: 1.6rem;
           color: var(--title-color);
-
         }
       }
       >button{
-        background-color: transparent;
-        border: 1px solid var(--secondary-color);
+        background-color: var(--exit-button-color);
+        border: 2px solid var(--exit-button-color);
         border-radius: 8px;
         padding: 8px 16px;
-        color: var(--secondary-color);
+        color: var(--white-color);
+        
         font-family: sans-serif;
         cursor: pointer;
         font-weight: bold;
-        transition: background-color 0.25s;
+        transition: filter .2s;
         &:hover{
-          background-color: var(--secondary-color);
-          color: var(--title-color);
+          filter: brightness(0.8);
         }
         
       }
@@ -97,6 +123,7 @@
       font-size: 2.4rem;
       margin: 64px 0 24px;
       font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
     }
 
     form{
@@ -114,6 +141,21 @@
       button, input {
         width: 100%;
       } 
+      div{
+        display: flex;
+        justify-content: center;
+        margin-top: 8px;
+        span{
+          color: var(--text-color);
+          font-size: 1.4rem;
+          a{
+            color: var(--link-color);
+            font-size: 1.4rem;
+          }
+        }
+
+
+      }
     }
     p{
       font-size: 1.4rem;
