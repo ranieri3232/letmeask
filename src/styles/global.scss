@@ -7,11 +7,9 @@
 html{
   font-size: 62.5%;
 }
-
-
 body{
-  background: #f8f8f8;
-  color: #29292e
+  background: var(--background-color);
+  color: var(--title-color);
 }
 
 body, input, button, textarea, strong {

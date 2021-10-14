@@ -2,7 +2,7 @@
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
-  background: #835afd;
+  background: var(--primary-color);
   color: #FFF;
   padding: 0 32px;
 
@@ -13,17 +13,14 @@
   border: 0;
 
   transition: filter 0.2s;
-
-  
-
   img{
     margin-right: 10px;
   }
 
   &.outlined{
     background: #FFF;
-    border: 1px solid #835afd;
-    color: #835afd;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
   }
   &:not(:disabled):hover{
     filter: brightness(0.9);

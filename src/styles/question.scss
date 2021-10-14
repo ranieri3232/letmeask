@@ -1,7 +1,8 @@
 .question{
-  background: #fefefe;
+  background: var(--text-area-background);
+  border: 1px solid var(--text-area-background);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 
   padding: 24px;
 
@@ -10,19 +11,20 @@
   }
 
   &.highlighted{
-    background: #f4f0ff;
-    border: 1px solid #835afd;
+    background: var(--hightlighted-color);
+    border: 1px solid var(--primary-color);
     footer .user-info span{
-      color: #29292e;
+      color: var(--text-color);
     }
   }
   &.answered{
-    background: #D8DCDD;
+    opacity: 0.6;
   }
 
   p{
-    color: #29292e;
+    color: var(--text-color);
     font-size: 1.6rem;
+    word-break: break-all;
   }
 
   footer{
@@ -43,7 +45,7 @@
 
       span{
         margin-left: 8px;
-        color: #737380;
+        color: var(--title-color);
         font-size: 1.4rem;
       }
     }
@@ -60,27 +62,67 @@
 
       >span{
         font-size: 1.6rem;
+        color: var(--button-color);
+      }
+      svg{
+        path, circle{
+          stroke: var(--button-color);
+        }   
       }
 
       &.like-button{
         display: flex;
         align-items: flex-end;
-        color: #737380;
+        color: var(--button-color);
 
         transition: filter 0.2s;
 
         gap: 8px;
 
         &.liked{
-          color: #835afd;
+          color: var(--primary-color);
 
           svg path{
-            stroke: #835afd;
+            stroke: var(--primary-color);
+          }
+          >span{
+            font-size: 1.6rem;
+            color: var(--primary-color);
           }
         }
 
         &:hover{
           filter: brightness(0.7);
+        }
+      }
+      &.delete-button{
+        &:hover{
+          svg{
+            path{
+              stroke: var(--exit-button-color);
+              transition: stroke .2s;
+            }
+          }
+        }
+      }
+      &.highlight-button{
+        &:hover{
+          svg{
+            path{
+              stroke: var(--primary-color);
+              transition: stroke .2s;
+            }
+          }
+        }
+      }
+      &.check-button{
+        &:hover{
+          svg{
+            path, circle{
+              stroke: var(--primary-color);
+              transition: stroke .2s;
+            }
+          }
         }
       }
     }

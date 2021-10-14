@@ -1,8 +1,9 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import logoImg from '../assets/images/logo.svg';
-import emptyQuestionsImg from '../assets/images/empty-questions.svg';
+import {ReactComponent as LogoImg } from '../assets/images/logo.svg';
+
+import { ReactComponent as EmptyQuestions } from '../assets/images/empty-questions.svg';
 
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
@@ -28,7 +29,7 @@ export function Room(){
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
-  const {questions, title} = useRoom(roomId);
+  const {questions, roomData} = useRoom(roomId);
 
   const {createToast} = useToast();
 
@@ -36,6 +37,11 @@ export function Room(){
     signOut();
     history.push('/');
   }
+  useEffect(() => {
+    if(roomData.authorId === user?.id){
+      history.push(`/admin/rooms/${roomId}`);
+    }
+  }, [user, roomData, roomId, history]);
   async function handleSendQuestion(event: FormEvent){
     event.preventDefault();
     if(newQuestion.trim() === ''){
@@ -55,7 +61,7 @@ export function Room(){
       isAnswered: false
     }
 
-    await database.ref(`rooms/${roomId}/questions`).push(question);
+    await database.ref(`questions/${roomId}`).push(question);
     setNewQuestion('');
   }
   async function handleSignIn(){
@@ -70,9 +76,9 @@ export function Room(){
   async function handleLikeQuestion(questionId: string, likeId: string | undefined){
     if(user){
       if(likeId){
-        await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove();
+        await database.ref(`questions/${roomId}/${questionId}/likes/${likeId}`).remove();
       }else{
-        await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
+        await database.ref(`questions/${roomId}/${questionId}/likes`).push({
           authorId: user?.id,
         });
       }
@@ -84,15 +90,16 @@ export function Room(){
       <header>
         <div className="content">
           <a href="/">
-            <img src={logoImg} alt="Letmeask" />
+            <LogoImg height={45}/>
           </a>
           <RoomCode code={roomId}/>
         </div>
       </header>
       <main className="content">
         <div className="room-title">
-          <h1>Sala {title}</h1>
+          <h1>Sala {roomData.title}</h1>
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
+          {roomData.closedAt&&<span className="closed-tip">encerrada {`${roomData.closedAt?.toLocaleDateString()}`}</span>}
          
         </div>
         <form 
@@ -112,7 +119,7 @@ export function Room(){
             ) : (
               <span>Para enviar uma pergunta, <button onClick={handleSignIn}>faça seu login</button>.</span>
             )}
-            <Button disabled={!user} type="submit">
+            <Button disabled={!user || roomData.closedAt !== undefined} type="submit">
               Enviar pergunta
             </Button>
           </div>
@@ -147,7 +154,7 @@ export function Room(){
           })
           :
           <div className="no-questions">
-            <img src={emptyQuestionsImg} alt="Lista de perguntas vazias" />
+            <EmptyQuestions />
             <h3>Nenhuma pergunta por aqui...</h3>
             <span>{user ? 'Seja o primeiro a perguntar!' : 'Faça o login e seja o primeiro a perguntar!'}</span>
           </div>

@@ -5,8 +5,7 @@
 
   aside{ 
     flex: 5;
-
-    background: #835afd;
+    background: var(--primary-color);
     color: #FFF;
 
     display: flex;
@@ -15,21 +14,32 @@
 
     padding: 120px 80px;
 
-    img{
-      max-width: 70%;
+    .illustration-img{
+      max-width: 90%;
+      max-height: 90%;
+      min-width: 200px;
+      min-height: 200px;
       margin: auto;
+      path.second-ball{
+        fill: var(--primary-color);
+      }
+      path.first-ball{
+        fill: var(--link-color);
+      }
+      
     }
 
     strong{
       font: 700 3.6rem 'Poppins', sans-serif;
       line-height: 42px;
       margin-top: 16px;
+      color: var(--white-color);
     }
     p{
       font-size: 2.4rem;
       line-height: 3.2rem;
       margin-top: 16px;
-      color: #f8f8f8
+      color: var(--white-color);
     }
 
   }
@@ -39,6 +49,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    background-color: var(--background-color);
   }
   .main-content{
     display: flex;
@@ -47,6 +59,23 @@
     max-width: 320px;
     align-items: stretch;
     text-align: center;
+
+    .logo-img{
+      margin: auto;
+      > *:nth-child(-n + 5){
+        fill: var(--text-color);
+      }
+      defs{
+        linearGradient{
+          >stop{
+            stop-color: var(--logo-gradient-up);
+          }
+          stop+stop{
+            stop-color: var(--logo-gradient-down);
+          }
+        }
+      }
+    }
 
     .user-info-card{
       display: flex;
@@ -65,22 +94,22 @@
         >span{
           margin-left: 1.6rem;
           font-size: 1.6rem;
-
+          color: var(--title-color);
         }
       }
       >button{
-        background-color: transparent;
-        border: 1px solid #ea4335;
+        background-color: var(--exit-button-color);
+        border: 2px solid var(--exit-button-color);
         border-radius: 8px;
         padding: 8px 16px;
-        color: #ea4335;
+        color: var(--white-color);
+        
         font-family: sans-serif;
         cursor: pointer;
         font-weight: bold;
-        transition: background-color 0.25s;
+        transition: filter .2s;
         &:hover{
-          background-color: #ea4335;
-          color: #f8f8f8;
+          filter: brightness(0.8);
         }
         
       }
@@ -94,6 +123,7 @@
       font-size: 2.4rem;
       margin: 64px 0 24px;
       font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
     }
 
     form{
@@ -102,7 +132,7 @@
         border-radius: 8px;
         padding: 0 16px;
         background: #FFF;
-        border: 1px solid #a8a8b3;
+        border: 1px solid var(--separator-color);
       }
       button{
         margin-top: 16px;
@@ -111,14 +141,29 @@
       button, input {
         width: 100%;
       } 
+      div{
+        display: flex;
+        justify-content: center;
+        margin-top: 8px;
+        span{
+          color: var(--text-color);
+          font-size: 1.4rem;
+          a{
+            color: var(--link-color);
+            font-size: 1.4rem;
+          }
+        }
+
+
+      }
     }
     p{
       font-size: 1.4rem;
-      color: #737380;
+      color: var(--title-color);
       margin-top: 16px;
 
       a{
-        color: #e559f9;
+        color: var(--link-color);
       }
     }
 
@@ -128,7 +173,7 @@
     height: 50px;
     border-radius: 8px;
     font-weight: 500;
-    background: #ea4335;
+    background: var(--secondary-color);
     color: #FFF;
 
     display: flex;
@@ -150,7 +195,7 @@
   }
   .separator{
     font-size: 1.4rem;
-    color: #a8a8b3;
+    color: var(--separator-color);
 
     margin: 32px 0;
     display: flex;
@@ -160,7 +205,7 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: #a8a8b3;
+      background: var(--separator-color);
       margin-right: 16px;
 
     }
@@ -168,7 +213,7 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: #a8a8b3;
+      background: var(--separator-color);
       margin-left: 16px;
     }
   }

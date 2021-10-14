@@ -1,5 +1,5 @@
-import illustratorImg from '../assets/images/illustration.svg';
-import logoImg from '../assets/images/logo.svg';
+import { ReactComponent as LogoImg} from '../assets/images/logo.svg';
+import { ReactComponent as IllustrationImg} from '../assets/images/illustration.svg';
 import { Button } from '../components/Button';
 import { useAuth } from '../hooks/useAuth';
 import {Link, useHistory} from 'react-router-dom'
@@ -7,16 +7,21 @@ import {Link, useHistory} from 'react-router-dom'
 import '../styles/auth.scss'
 import { FormEvent, useState } from 'react';
 import { database } from '../services/firebase';
+import { useToast } from '../hooks/useToast';
+import { T_TYPES } from '../contexts/ToastContext';
 export function NewRoom(){
   
   const {user} = useAuth();
   const [newRoom, setNewRoom] = useState('');
   const history = useHistory();
   
+  const {createToast} = useToast();
+  
   async function handleCreateRoom(event: FormEvent){
     event.preventDefault();
 
     if(newRoom.trim() === ''){
+      createToast('Preencha o nome da sala', {tType:T_TYPES.DANGER});
       return;
     }
     const roomRef = await database.ref('rooms');
@@ -29,13 +34,13 @@ export function NewRoom(){
   return (
     <div id="page-auth"> 
       <aside>
-        <img src={illustratorImg} alt="ilustração simbolizando perguntas e respostas" />
+        <IllustrationImg className="illustration-img"/>
         <strong>Crie salas de Q&amp;A ao-vivo </strong>
         <p> Tire dúvidas da sua audiência em tempo real</p>
       </aside>
       <main>
         <div className="main-content">
-          <img src={logoImg} alt="Letmeask" />
+          <LogoImg className="logo-img"/>
           <h2>Criar uma nova sala</h2>
           <form onSubmit={handleCreateRoom}>
             <input 
